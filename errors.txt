@@ -1,0 +1,10 @@
+﻿I'm sorry, but errors were detected in your script. Please correct the
+errors listed below, and try again.
+
+
+File "game/script.rpy", line 33: Line is indented, but the preceding define statement statement does not expect a block. Please check this line's indentation. You may have forgotten a colon (:).
+    label start:
+    ^
+
+Ren'Py Version: Ren'Py 8.3.2.24090902
+Tue Oct 22 22:14:48 2024
