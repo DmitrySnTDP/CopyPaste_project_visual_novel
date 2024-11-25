@@ -1,8 +1,14 @@
 ﻿init python:
     import random
 
-define s = Character('Саша', color="#c8ffc8")
+    def get_random_elem_in_array(array):
+        random_elem = array[random.randint(0, len(array)-1)]
+        return random_elem
+
+define s = Character("Саша",color="#f85454")
+define r = Character("Рома",color="#78ea3b")
 define ai = Character('ИИ помощник', color="#ee7220ff")
+define b = Character("Начальник",color="#86dbfc")
 
 define phrases_searching_bugs = [["Part 11", "Part 12", "Part 13"],
     ["Part 21", "Part 22", "Part 23"],
@@ -17,6 +23,12 @@ define phrases_fight = [["Part 1_1", "Part 1_2", "Part 1_3", "Part 1_4"],
     ["Part 1_1", "Part 1_2", "Part 1_3", "Part 1_4"]]
 
 define names_bugs = ["name_bug_1", "name_bug_2", "name_bug_3", "name_bug_4", "name_bug_5"]
+
+define phrases_developer_call = ["Нам нужны только радикальные меры для победы над ней!",
+    "Давай победим её как можно скорее!",
+    "Нужно быть предельно осторожными, чтобы не разможить ему подобных",
+    "За дело!"]
+
 define nums_goods_opt_choi_bug = [0, 2, 1, 0, 1]
 define nums_goods_options_fight = [1, 2, 3, 2, 1]
 define shown_options = [0, 1, 2, 3]
@@ -38,27 +50,51 @@ label start:
     "Если Саша хорошо справится с задачей, то его примут на работу."
     # Фон: крупный план на его ноутбук, на экране крупно отображается новое сообщение о отклике на его вакансию. Саша удивлён и рад. (Саша стоит справа)
 
-    hide sasha
-    scene black
-    centered "На следующий день"
-
-    scene bg ofice
-    show sasha excited
-    "Это первый день Саши в этой кампании."
-    s "Мне так нетерпится начать и показать себя в деле!"
-    "Помогите Саше найти проблемные места в программе."
-    # # Фон: Офис IT-кампании. Саша взволнован от ожидания начала работы (располагается по центру экрана).
     jump part1
 
 label part1:
-    "А теперь помоги ему и разработчику победить ошибки."
-    "Выбери место программы, где может быть ошибка."
+    hide sasha
+    scene black with fade
+    centered "На следующий день"
+    
+    scene bg office with fade
+    show sasha excited
+    "Это первый день Саши в этой кампании."
+    # Фон: Офис IT-кампании. Саша взволнован от ожидания начала работы (располагается по центру экрана).
+
+    
+    scene bg in_office with fade
+    show sasha excited
+    s "Мне так нетерпится приступить к работе и показать себя в деле!"
+    "Помогите Саше найти проблемные места в программе."
+
     $ num_fight = 0
     jump inspect
 
 label part2:
-    "Часть 2"
-    "бла бла про ии"
+    show roma normal:
+        xalign 0.25
+        yalign 1.0
+    r "Это было классно!"
+    s "Согласен! Спасибо тебе за помощь."
+    r "Обращайся!"
+    hide roma
+    s "Надо передохнуть и после продолжим искать баги."
+    scene black with fade
+    centered "Спустя 30 минут"
+    scene bg in_office with fade
+    show sasha normal
+    show boss normal:
+        xalign 0.25
+        yalign 1.0
+    b "У меня есть хорошая новость для тебя."
+    s "Какая?"
+    b "Одна из наших команд закончила разработку ИИ помощника для тестирования программ."
+    b "Ты можешь им пользоваться, но будь осторожней, он ещё не до конца проверен."
+    s "Спасибо, сейчас же пойду и опробую его!"
+
+    "Теперь у тебя появилась кнопка \"Помошь ИИ\" в битве с багом, она убирает один из неправильных вариантов за раз."
+    "Но не злоупотребляй ей, нейросеть ещё сырая!"
     $ num_fight = 1
     jump inspect
 
@@ -117,7 +153,12 @@ label select_part:
 
 
 label inspect:
+    scene bg program_testing
+    show sasha normal at right
+
     menu:
+        s "Давай выберем место программы, где может быть ошибка."
+
         "[phrases_searching_bugs[num_fight][0]]":
             $ num_elem = 0
             jump inspect_action
@@ -130,15 +171,34 @@ label inspect:
 
 label inspect_action:
     if nums_goods_opt_choi_bug[num_fight] == num_elem:
-        "Выбран вариант [num_elem+1], верно"
-        "БОЙ С ОШИБКОЙ [names_bugs[num_fight]]"
+        "Выбран вариант [num_elem+1], верно."
+        if num_fight == 0:
+            menu:
+                "Теперь напиши разрабочику, что нашёл первую ошибку."
+                "Написать":
+                    "{color=#f85454}[s]{/color}\n Привет, я нашёл ошибку. Поможешь мне справиться с ней?"
+                    "{color=#f85454}[s]{/color}\n Привет, я нашёл ошибку. Поможешь мне справиться с ней?\n{color=#78ea3b}[r]{/color}\n Привет, конечно, скоро приду и победим её!"
+
+        scene black with fade
+        centered "Бой с ошибкой [names_bugs[num_fight]]."
+        scene bg fight with dissolve
+        show roma normal:
+            xalign 0.1
+            yalign 0.5
+        show sasha normal at left
+        image monster = "monsters/monster[num_fight].png"
+        show monster at right
+
+        r "[get_random_elem_in_array(phrases_developer_call)]"
         $ shown_options = [0, 1, 2, 3, 4]
         jump fight
-    "Выбран вариант [num_elem+1], неверно"
+    "Выбран вариант [num_elem+1], неверно."
+    $ number_mistakes += 1
     jump inspect
 
 label fight:
     menu:
+        s "Давай выберем вариант, который исправит ошбику."
         "[phrases_fight[num_fight][0]]" if 0 in shown_options:
             $ num_elem = 0
             jump fight_action
@@ -157,9 +217,13 @@ label fight:
 
 label fight_action:
     if nums_goods_options_fight[num_fight] == num_elem:
-        "Выбран вариант [num_elem+1], Верно"
+        pause(0.2)
+        hide monster
+        "Выбран вариант [num_elem+1], Верно."
+        scene bg in_office with fade
+        show sasha normal
         jump select_part
-    "Выбран вариант [num_elem+1], Неверно"
+    "Выбран вариант [num_elem+1], Неверно."
     $ number_mistakes += 1
     jump fight
 
@@ -175,5 +239,5 @@ label AI_help:
             if nums_goods_options_fight[num_fight] != del_item and del_item in shown_options:
                 shown_options.remove(del_item)
                 break
-        renpy.say(ai, "Мне кажется, что вариант [phrases_fight[num_fight][del_item]] не правильный")
+        renpy.say(ai, "Мне кажется, что вариант [phrases_fight[num_fight][del_item]] не правильный.")
     jump fight
