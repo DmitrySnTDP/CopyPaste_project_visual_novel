@@ -15,8 +15,6 @@ label start:
 
     show eileen happy
 
-    e "Эта новелла спонсирована blackgaypornblogger.com и Уральский Федеральный Университет им. Первого президента Росиии Б. Н. Ельцина"
-
     e "Здесь бла бла бла"
 
     return
