@@ -10,47 +10,88 @@ define r = Character("Рома",color="#78ea3b")
 define ai = Character('ИИ помощник', color="#ee7220ff")
 define b = Character("Начальник",color="#86dbfc")
 
-define phrases_searching_bugs = [["Part 11", "Part 12", "Part 13"],
-    ["Part 21", "Part 22", "Part 23"],
-    ["Part 31", "Part 32", "Part 33"],
-    ["Part 41", "Part 42", "Part 43"],
-    ["Part 51", "Part 52", "Part 53"]]
+define phrases_searching_bugs = [[
+        "Случай некорректного рейтинга не обработан в функции calculate_bonus()",
+        "функция возвращает None для некорректного рейтинга.",
+        "Проблема с выводом результата, использован неправильный формат строки."],
 
-define phrases_fight = [["Part 1_1", "Part 1_2", "Part 1_3", "Part 1_4"],
-    ["Part 1_1", "Part 1_2", "Part 1_3", "Part 1_4"],
-    ["Part 1_1", "Part 1_2", "Part 1_3", "Part 1_4"],
-    ["Part 1_1", "Part 1_2", "Part 1_3", "Part 1_4"],
-    ["Part 1_1", "Part 1_2", "Part 1_3", "Part 1_4"]]
+    ["Некорректное преобразование типов в одной из записей.",
+        "отсутствует проверка на существование ключа amount в записи.",
+        "Значение amount в одном из записей представлено строкой вместо числа. "],
+
+    ["Некорректное распределение задач между сотрудниками.",
+        "Список сотрудников пуст, из-за чего происходит деление на ноль. ",
+        "Ошибка в выводе результата: список задач не соответствует сотрудникам."],
+
+    ["Part 41",
+        "Part 42",
+        "Part 43"],
+
+    ["Part 51",
+        "Part 52",
+        "Part 53"]]
+
+define phrases_fight = [[
+        "Исключить сотрудников с некорректным рейтингом из списка employee_data.",
+        "Добавить условие else, возвращающее бонус 0 для некорректных рейтингов.",
+        "Переписать функцию для обработки всех возможных значений рейтингов.",
+        "Вернуть значение None вместо бонуса для некорректного рейтинга."],
+
+    ["Пропустить некорректную запись и вывести предупреждение.",
+        "Проверить все записи на корректность данных перед началом подсчёта.",
+        "Добавить проверку типа данных перед сложением и преобразовать строку в число. ",
+        "Исключить записи с некорректными типами данных из обработки."],
+
+    ["Заменить пустой список сотрудников на значение по умолчанию.",
+        "Вывести сообщение об ошибке и остановить выполнение программы.",
+        "Пропустить распределение задач, если список сотрудников пуст.",
+        "Добавить проверку, что список сотрудников не пуст, перед началом распределения задач."],
+
+    ["Part 4_1",
+        "Part 4_2",
+        "Part 4_3",
+        "Part 4_4"],
+
+    ["Part 5_1",
+        "Part 5_2",
+        "Part 5_3",
+        "Part 5_4"]]
+
 
 define names_bugs = ["name_bug_1", "name_bug_2", "name_bug_3", "name_bug_4", "name_bug_5"]
 
 define phrases_developer_call = ["Нам нужны только радикальные меры для победы над ней!",
     "Давай победим её как можно скорее!",
-    "Нужно быть предельно осторожными, чтобы не разможить ему подобных",
+    "Нужно быть предельно осторожными, чтобы не размножить ему подобных!",
     "За дело!"]
 
 define nums_goods_opt_choi_bug = [0, 2, 1, 0, 1]
 define nums_goods_options_fight = [1, 2, 3, 2, 1]
 define shown_options = [0, 1, 2, 3]
 
+image monster one = im.Scale("monsters/monster1.png", 420, 720)
+
 define number_mistakes = 0
 define ai_uses_count = 0
 define num_fight = 0
 define num_elem = 0
 
+# style menu:
+#     yalign 0.7
+
+
 label start:
     scene bg room_sasha
     show sasha welcoming at left
     "Это Саша. Он закончил учиться и ищет работу тестировщиком."
-    # Фон: комната Саши, он стоит и приветствует игрока(мб машет рукой или просто улыбается), на заднем плане виден его ноутбук. (Саша стоит слева)
 
     scene bg sachas_computer
     show sasha surprised at right
     "О, на его вакансию откликнулась крупная кампания и предложила протестировать их новый проект."
     "Если Саша хорошо справится с задачей, то его примут на работу."
-    # Фон: крупный план на его ноутбук, на экране крупно отображается новое сообщение о отклике на его вакансию. Саша удивлён и рад. (Саша стоит справа)
 
     jump part1
+
 
 label part1:
     hide sasha
@@ -60,19 +101,30 @@ label part1:
     scene bg office with fade
     show sasha excited
     "Это первый день Саши в этой кампании."
-    # Фон: Офис IT-кампании. Саша взволнован от ожидания начала работы (располагается по центру экрана).
-
     
     scene bg in_office with fade
     show sasha excited
-    s "Мне так нетерпится приступить к работе и показать себя в деле!"
-    "Помогите Саше найти проблемные места в программе."
-
+    s "Мне так не терпится приступить к работе и показать себя в деле!"
+    s "Что-то мне становится нехорошо, кружится голова, ощущение, что меня куда-то засасывает."
+    scene bg teleport with fade
+    show sasha surprised:
+        yalign 0.5
+        xalign 0.5
+    pause(1.0)
     $ num_fight = 0
+    scene bg codespace1 with fade
+    show sasha normal
+
+    s "Где я? Как я сюда попал? Ладно, для начала надо осмотреться."
+    "Пока Саша ходит, он не перестает размышлять о том, как можно решить его первую задачу на работе."
+
     jump inspect
 
+
 label part2:
-    show roma normal:
+    scene bg in_office with fade
+    show roma normal
+    show sasha normal:
         xalign 0.25
         yalign 1.0
     r "Это было классно!"
@@ -83,8 +135,8 @@ label part2:
     scene black with fade
     centered "Спустя 30 минут"
     scene bg in_office with fade
-    show sasha normal
-    show boss normal:
+    show boss normal
+    show sasha normal:
         xalign 0.25
         yalign 1.0
     b "У меня есть хорошая новость для тебя."
@@ -98,20 +150,48 @@ label part2:
     $ num_fight = 1
     jump inspect
 
+
 label part3:
-    "часть 3"
+    scene bg in_office with fade
+    show roma normal
+    show sasha normal:
+        xalign 0.25
+        yalign 1.0
+    s "Ну вот, задача решена. Все данные теперь числовые, и счётчик работает. Я был почти уверен, что это будет сложнее. Где же этот сложный баг, который ты мне обещал?"
+    r "Ты что, ждал, что я пошлю тебя искать баг с лазерными лучами и роботами? Иногда самые простые ошибки — это самые опасные."
+    s "О да, строка вместо числа — это просто хитроумный заговор. Я почти почувствовал, как меня сбивают с пути величественные цифровые лабиринты."
+    r "И я думал, ты в первый раз с багами встречаешься! На самом деле, эта ошибка — как раз тот момент, когда ты мог бы почувствовать себя экспертом. Всё очень просто, и именно поэтому её так легко не заметить."
+    s "Ну да, этот баг был такой \"невидимый\", что я почти стал верить, что сам ошибся. Ведь кто ещё, как не я, мог бы не заметить, что строка — это не число?"
+    r "Да, ты поистине первый человек, который мог бы пропустить это. Просто не забывай: иногда для того, чтобы победить баг, нужно меньше думать, а больше искать очевидное."
+    s "Я понял, Рома. Обещаю в следующий раз искать \"очевидное\", пока не буду полностью уверен, что это не будет таким же \"невидимым\" багом, как сейчас."
+    r "Отлично, а я, между прочим, начну проверку кодов для самых очевидных ошибок... ну, если ты решишь, что это будет легко. Ты ведь теперь мастер!"
+    s "Конечно, мастер... Пожалуй, я поставлю себе медаль \"Победитель очевидных ошибок\" на стол."
+    
     $ num_fight = 2
     jump inspect
 
+
 label part4:
+    scene bg in_office with fade
+    # show roma normal
+    show sasha normal
+        # xalign 0.25
+        # yalign 1.0
     "часть 4"
     $ num_fight = 3
     jump inspect
 
+
 label part5:
+    scene bg in_office with fade
+    # show roma normal
+    show sasha normal
+        # xalign 0.25
+        # yalign 1.0
     "Часть 5"
     $ num_fight = 4
     jump inspect
+
 
 label to_end:
     if 0 <= number_mistakes <= 4:
@@ -121,17 +201,21 @@ label to_end:
     else:
         jump bad_end
 
+
 label good_end:
     "Хорошая концовка"
     return
+
 
 label neutral_end:
     "Нейтральная концовка"
     return
 
+
 label bad_end:
     "Плохая концовка"
     return
+
 
 label skynet_end:
     "Бунт ИИ."
@@ -153,11 +237,15 @@ label select_part:
 
 
 label inspect:
-    scene bg program_testing
+    image bg codespace = "codespaces/bg codespace[num_fight+1].png"
+    scene bg codespace
     show sasha normal at right
-
+    image deffect code = "codes/code[num_fight+1].png"
+    show deffect code:
+        yalign 0.0
+        xalign 0.5
     menu:
-        s "Давай выберем место программы, где может быть ошибка."
+        "Помогите ему понять в чем была ошибка в программе."
 
         "[phrases_searching_bugs[num_fight][0]]":
             $ num_elem = 0
@@ -172,24 +260,23 @@ label inspect:
 label inspect_action:
     if nums_goods_opt_choi_bug[num_fight] == num_elem:
         "Выбран вариант [num_elem+1], верно."
-        if num_fight == 0:
-            menu:
-                "Теперь напиши разрабочику, что нашёл первую ошибку."
-                "Написать":
-                    "{color=#f85454}[s]{/color}\n Привет, я нашёл ошибку. Поможешь мне справиться с ней?"
-                    "{color=#f85454}[s]{/color}\n Привет, я нашёл ошибку. Поможешь мне справиться с ней?\n{color=#78ea3b}[r]{/color}\n Привет, конечно, скоро приду и победим её!"
 
         scene black with fade
         centered "Бой с ошибкой [names_bugs[num_fight]]."
         scene bg fight with dissolve
-        show roma normal:
-            xalign 0.1
-            yalign 0.5
         show sasha normal at left
-        image monster = "monsters/monster[num_fight].png"
-        show monster at right
+        if num_fight == 0:
+            s "Почему-то все пути вели меня в одно место, такое ощущение, что я ищу ошибку и все ближе и ближе к ней приближаюсь."
+            show monster one
+            s "Кажется это конец, я нашёл её, но сам я точно не справлюсь, жалко, что моего друга-разработчика нет рядом..."
+            show roma normal at right
+            r "Молодец, ты смог найти свою первую ошибку!"
+            s "Как ты сюда попал? Ты знал про этот мир?"
+            r "Это каждый тестировщик знает, ты в каком веке живешь? Я появляюсь в этом мире, когда тестировщику плохо. Меньше слов - больше дела."
+        else:
+            image monster = "monsters/monster[num_fight+1].png"
+            show monster at right
 
-        r "[get_random_elem_in_array(phrases_developer_call)]"
         $ shown_options = [0, 1, 2, 3, 4]
         jump fight
     "Выбран вариант [num_elem+1], неверно."
@@ -198,7 +285,7 @@ label inspect_action:
 
 label fight:
     menu:
-        s "Давай выберем вариант, который исправит ошбику."
+        s "Давай выберем вариант, который исправит ошибку."
         "[phrases_fight[num_fight][0]]" if 0 in shown_options:
             $ num_elem = 0
             jump fight_action
@@ -220,8 +307,6 @@ label fight_action:
         pause(0.2)
         hide monster
         "Выбран вариант [num_elem+1], Верно."
-        scene bg in_office with fade
-        show sasha normal
         jump select_part
     "Выбран вариант [num_elem+1], Неверно."
     $ number_mistakes += 1
