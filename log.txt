@@ -1,10 +1,10 @@
-2024-12-08 17:01:23 UTC
+2024-12-09 15:27:48 UTC
 Windows-10-10.0.26100
 Ren'Py 8.3.2.24090902
 
 Early init took 0.05s
-Loading error handling took 0.03s
-Loading script took 0.13s
+Loading error handling took 0.02s
+Loading script took 0.08s
 Loading save slot metadata took 0.03s
 Loading persistent took 0.00s
 Running init code took 0.04s
@@ -12,7 +12,6 @@ Loading analysis data took 0.01s
 Analyze and compile ATL took 0.00s
 Reloading save slot metadata took 0.02s
 Index archives took 0.00s
-Backing up script files to 'C:\\Users\\Dima\\AppData\\Roaming/RenPy/backups\\Mistake of fate':
 Dump and make backups took 0.04s
 Cleaning cache took 0.00s
 Making clean stores took 0.00s
@@ -20,18 +19,18 @@ Initial gc took 0.03s
 DPI scale factor: 1.250000
 nvdrs: Loaded, about to disable thread optimizations.
 nvdrs: Disabled thread optimizations.
-Creating interface object took 0.25s
+Creating interface object took 0.24s
 Cleaning stores took 0.00s
-Init translation took 0.03s
+Init translation took 0.04s
 Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.01s
-Save screen analysis took 0.02s
+Load screen analysis took 0.02s
+Analyze screens took 0.00s
+Save screen analysis took 0.00s
 Prepare screens took 0.06s
-Save pyanalysis. took 0.01s
-Save bytecode. took 0.02s
+Save pyanalysis. took 0.00s
+Save bytecode. took 0.00s
 Running _start took 0.00s
-Interface start took 0.13s
+Interface start took 0.11s
 
 Initializing gl2 renderer:
 primary display bounds: (0, 0, 1920, 1080)
@@ -45,9 +44,9 @@ Screen sizes: virtual=(1920, 1080) physical=(1920, 1080) drawable=(1920, 1080)
 Maximum texture size: 4096x4096
 
 Full traceback:
-  File "game/script.rpy", line 241, in script
-    scene bg codespace
-  File "D:\Programs\renpy-8.3.2-sdk\renpy\ast.py", line 1245, in execute
+  File "game/script.rpy", line 262, in script
+    show deffect code:
+  File "D:\Programs\renpy-8.3.2-sdk\renpy\ast.py", line 1111, in execute
     show_imspec(self.imspec, atl=getattr(self, "atl", None))
   File "D:\Programs\renpy-8.3.2-sdk\renpy\ast.py", line 1074, in show_imspec
     renpy.config.show(name,
@@ -63,9 +62,9 @@ Full traceback:
     self.find_target()
   File "D:\Programs\renpy-8.3.2-sdk\renpy\display\image.py", line 683, in find_target
     raise Exception(error)
-Exception: DynamicImage 'codespaces/bg codespace[num_fight+1].png': could not find image. ('codespaces/bg codespace4.png')
+Exception: DynamicImage 'codes/code[num_fight+1].png': could not find image. ('codes/code4.png')
 
 While running game code:
-  File "game/script.rpy", line 241, in script
-    scene bg codespace
-Exception: DynamicImage 'codespaces/bg codespace[num_fight+1].png': could not find image. ('codespaces/bg codespace4.png')
+  File "game/script.rpy", line 262, in script
+    show deffect code:
+Exception: DynamicImage 'codes/code[num_fight+1].png': could not find image. ('codes/code4.png')

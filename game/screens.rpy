@@ -3,7 +3,7 @@
 ################################################################################
 
 init offset = -1
-
+define ypos_choice_menu = 540
 
 ################################################################################
 ## Стили
@@ -208,7 +208,15 @@ style input:
 screen choice(items):
     style_prefix "choice"
 
+    if len(items) <= 3:
+        $ ypos_choice_menu = 600
+    else:
+        $ ypos_choice_menu = 500    
+    
     vbox:
+        style "choice_vbox"
+        ypos ypos_choice_menu
+
         for i in items:
             textbutton i.caption action i.action
 
@@ -219,7 +227,7 @@ style choice_button_text is button_text
 
 style choice_vbox:
     xalign 0.5
-    ypos 405
+    ypos ypos_choice_menu
     yanchor 0.5
 
     spacing gui.choice_spacing

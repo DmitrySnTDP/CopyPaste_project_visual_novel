@@ -70,14 +70,12 @@ define nums_goods_options_fight = [1, 2, 3, 2, 1]
 define shown_options = [0, 1, 2, 3]
 
 image monster one = im.Scale("monsters/monster1.png", 420, 720)
+image bg fantasy_world = im.Scale("fantasy_worlds/fantasy_world1.jpg" , 1920, 1080)
 
 define number_mistakes = 0
 define ai_uses_count = 0
 define num_fight = 0
 define num_elem = 0
-
-# style menu:
-#     yalign 0.7
 
 
 label start:
@@ -106,18 +104,24 @@ label part1:
     show sasha excited
     s "Мне так не терпится приступить к работе и показать себя в деле!"
     s "Что-то мне становится нехорошо, кружится голова, ощущение, что меня куда-то засасывает."
-    scene bg teleport with fade
-    show sasha surprised:
-        yalign 0.5
-        xalign 0.5
-    pause(1.0)
-    $ num_fight = 0
-    scene bg codespace1 with fade
-    show sasha normal
+    call teleport
 
+    scene bg fantasy_world
+    show sasha normal
     s "Где я? Как я сюда попал? Ладно, для начала надо осмотреться."
     "Пока Саша ходит, он не перестает размышлять о том, как можно решить его первую задачу на работе."
 
+    s "Почему-то все пути вели меня в одно место, такое ощущение, что я ищу ошибку и все ближе и ближе к ней приближаюсь."
+    s "Она должна быть где-то здесь!"
+    
+    # scene bg fantasy_world
+    # show sasha normal
+    # show monster one
+    # s "Кажется это конец, я нашёл её, но сам я точно не справлюсь, жалко, что моего друга-разработчика нет рядом..."
+    # show roma normal at right
+    # r "Молодец, ты смог найти свою первую ошибку!"
+    # s "Как ты сюда попал? Ты знал про этот мир?"
+    # r "Это каждый тестировщик знает, ты в каком веке живешь? Я появляюсь в этом мире, когда тестировщику плохо. Меньше слов - больше дела."
     jump inspect
 
 
@@ -144,9 +148,21 @@ label part2:
     b "Одна из наших команд закончила разработку ИИ помощника для тестирования программ."
     b "Ты можешь им пользоваться, но будь осторожней, он ещё не до конца проверен."
     s "Спасибо, сейчас же пойду и опробую его!"
-
+    hide boss
     "Теперь у тебя появилась кнопка \"Помошь ИИ\" в битве с багом, она убирает один из неправильных вариантов за раз."
     "Но не злоупотребляй ей, нейросеть ещё сырая!"
+    
+    s "Хорошо, что Рома помог. Надо разобраться с остальными задачами." 
+    s "Я чувствую, что скоро снова окажусь в этом странном месте. Наверное, когда я буду совсем близко к решению следующей проблемы…" 
+    # <Саша возвращается к своему рабочему столу. > 
+    scene bg workplace
+    show sasha normal at right
+    "Он сосредоточенно работает над второй задачей. Часы тикают. Он чувствует всё нарастающее чувство тревоги, ощущение дежавю." 
+    "Саша перепроверяет каждый оператор, каждую переменную."
+    "Он снова чувствует… то же самое ощущение, что и в прошлый раз. Голова начинает кружиться…"
+    s "Нет… только не это, снова… "
+    "Мир вокруг Саши начинает искажаться. Цвета становятся неестественными, предметы расплываются. Звуки искажаются в неприятный гул... "
+    call teleport
     $ num_fight = 1
     jump inspect
 
@@ -166,29 +182,25 @@ label part3:
     s "Я понял, Рома. Обещаю в следующий раз искать \"очевидное\", пока не буду полностью уверен, что это не будет таким же \"невидимым\" багом, как сейчас."
     r "Отлично, а я, между прочим, начну проверку кодов для самых очевидных ошибок... ну, если ты решишь, что это будет легко. Ты ведь теперь мастер!"
     s "Конечно, мастер... Пожалуй, я поставлю себе медаль \"Победитель очевидных ошибок\" на стол."
-    
+    call teleport
     $ num_fight = 2
     jump inspect
 
 
 label part4:
     scene bg in_office with fade
-    # show roma normal
     show sasha normal
-        # xalign 0.25
-        # yalign 1.0
     "часть 4"
+    call teleport
     $ num_fight = 3
     jump inspect
 
 
 label part5:
     scene bg in_office with fade
-    # show roma normal
     show sasha normal
-        # xalign 0.25
-        # yalign 1.0
     "Часть 5"
+    call teleport
     $ num_fight = 4
     jump inspect
 
@@ -236,14 +248,21 @@ label select_part:
         jump to_end
 
 
+label teleport:
+    scene bg teleport with fade
+    pause(1.0)
+    return
+
+
 label inspect:
-    image bg codespace = "codespaces/bg codespace[num_fight+1].png"
-    scene bg codespace
+    scene bg fantasy_world
+    
     show sasha normal at right
     image deffect code = "codes/code[num_fight+1].png"
     show deffect code:
         yalign 0.0
         xalign 0.5
+
     menu:
         "Помогите ему понять в чем была ошибка в программе."
 
@@ -260,22 +279,28 @@ label inspect:
 label inspect_action:
     if nums_goods_opt_choi_bug[num_fight] == num_elem:
         "Выбран вариант [num_elem+1], верно."
+        # scene black with fade
+        # centered "Бой с ошибкой [names_bugs[num_fight]].
+        call teleport
 
-        scene black with fade
-        centered "Бой с ошибкой [names_bugs[num_fight]]."
-        scene bg fight with dissolve
-        show sasha normal at left
         if num_fight == 0:
-            s "Почему-то все пути вели меня в одно место, такое ощущение, что я ищу ошибку и все ближе и ближе к ней приближаюсь."
+            scene bg fight with dissolve
+            show sasha normal at left
             show monster one
-            s "Кажется это конец, я нашёл её, но сам я точно не справлюсь, жалко, что моего друга-разработчика нет рядом..."
+            s "Уф, сколько раз это ещё будет повторяться!?"
+            s "О нет, кажется это та самая ошибка..."
+            s "Самостоятельно я точно не справлюсь, жалко, что моего друга-разработчика нет рядом..."
+
             show roma normal at right
             r "Молодец, ты смог найти свою первую ошибку!"
             s "Как ты сюда попал? Ты знал про этот мир?"
             r "Это каждый тестировщик знает, ты в каком веке живешь? Я появляюсь в этом мире, когда тестировщику плохо. Меньше слов - больше дела."
         else:
+            scene bg fight with dissolve
+            show sasha normal at left
             image monster = "monsters/monster[num_fight+1].png"
             show monster at right
+            s "Пора победить её!"
 
         $ shown_options = [0, 1, 2, 3, 4]
         jump fight
@@ -307,6 +332,7 @@ label fight_action:
         pause(0.2)
         hide monster
         "Выбран вариант [num_elem+1], Верно."
+        call teleport
         jump select_part
     "Выбран вариант [num_elem+1], Неверно."
     $ number_mistakes += 1
