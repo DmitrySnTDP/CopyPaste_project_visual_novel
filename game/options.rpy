@@ -54,7 +54,7 @@ define config.has_voice = True
 ## Чтобы разрешить игроку тестировать громкость на звуковом или голосовом
 ## каналах, раскомментируйте строчку и настройте пример звука для прослушивания.
 
-# define config.sample_sound = "sample-sound.ogg"
+define config.sample_sound = "people_oryt1.ogg"
 # define config.sample_voice = "sample-voice.ogg"
 
 

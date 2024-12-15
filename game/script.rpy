@@ -69,7 +69,7 @@ define nums_goods_opt_choi_bug = [0, 2, 1, 0, 1]
 define nums_goods_options_fight = [1, 2, 3, 2, 1]
 define shown_options = [0, 1, 2, 3]
 
-image monster one = im.Scale("monsters/monster1.png", 420, 720)
+image monster one = "monsters/monster1.png"
 image bg fantasy_world = im.Scale("fantasy_worlds/fantasy_world1.jpg" , 1920, 1080)
 
 define number_mistakes = 0
@@ -79,6 +79,7 @@ define num_elem = 0
 
 
 label start:
+    play music "start_fone_music.ogg" fadein 1
     scene bg room_sasha
     show sasha welcoming at left
     "Это Саша. Он закончил учиться и ищет работу тестировщиком."
@@ -87,6 +88,7 @@ label start:
     show sasha surprised at right
     "О, на его вакансию откликнулась крупная кампания и предложила протестировать их новый проект."
     "Если Саша хорошо справится с задачей, то его примут на работу."
+    stop music fadeout 1
 
     jump part1
 
@@ -95,7 +97,7 @@ label part1:
     hide sasha
     scene black with fade
     centered "На следующий день"
-    
+    play music "people_fone1.ogg" fadein 1
     scene bg office with fade
     show sasha excited
     "Это первый день Саши в этой кампании."
@@ -104,28 +106,23 @@ label part1:
     show sasha excited
     s "Мне так не терпится приступить к работе и показать себя в деле!"
     s "Что-то мне становится нехорошо, кружится голова, ощущение, что меня куда-то засасывает."
+    stop music fadeout 1
     call teleport
 
     scene bg fantasy_world
     show sasha normal
+    play music "disturbing_music.ogg" fadein 1
     s "Где я? Как я сюда попал? Ладно, для начала надо осмотреться."
     "Пока Саша ходит, он не перестает размышлять о том, как можно решить его первую задачу на работе."
 
     s "Почему-то все пути вели меня в одно место, такое ощущение, что я ищу ошибку и все ближе и ближе к ней приближаюсь."
     s "Она должна быть где-то здесь!"
     
-    # scene bg fantasy_world
-    # show sasha normal
-    # show monster one
-    # s "Кажется это конец, я нашёл её, но сам я точно не справлюсь, жалко, что моего друга-разработчика нет рядом..."
-    # show roma normal at right
-    # r "Молодец, ты смог найти свою первую ошибку!"
-    # s "Как ты сюда попал? Ты знал про этот мир?"
-    # r "Это каждый тестировщик знает, ты в каком веке живешь? Я появляюсь в этом мире, когда тестировщику плохо. Меньше слов - больше дела."
     jump inspect
 
 
 label part2:
+    play music "people_fone2.ogg" fadein 1
     scene bg in_office with fade
     show roma normal
     show sasha normal:
@@ -136,8 +133,10 @@ label part2:
     r "Обращайся!"
     hide roma
     s "Надо передохнуть и после продолжим искать баги."
+    stop music fadeout 1
     scene black with fade
     centered "Спустя 30 минут"
+    play music "people_fone2.ogg" fadein 1
     scene bg in_office with fade
     show boss normal
     show sasha normal:
@@ -163,11 +162,13 @@ label part2:
     s "Нет… только не это, снова… "
     "Мир вокруг Саши начинает искажаться. Цвета становятся неестественными, предметы расплываются. Звуки искажаются в неприятный гул... "
     call teleport
+    play music "disturbing_music.ogg" fadein 1
     $ num_fight = 1
     jump inspect
 
 
 label part3:
+    play music "people_fone2.ogg" fadein 1
     scene bg in_office with fade
     show roma normal
     show sasha normal:
@@ -182,7 +183,9 @@ label part3:
     s "Я понял, Рома. Обещаю в следующий раз искать \"очевидное\", пока не буду полностью уверен, что это не будет таким же \"невидимым\" багом, как сейчас."
     r "Отлично, а я, между прочим, начну проверку кодов для самых очевидных ошибок... ну, если ты решишь, что это будет легко. Ты ведь теперь мастер!"
     s "Конечно, мастер... Пожалуй, я поставлю себе медаль \"Победитель очевидных ошибок\" на стол."
+    stop music fadeout 1
     call teleport
+    play music "disturbing_music.ogg" fadein 1
     $ num_fight = 2
     jump inspect
 
@@ -192,6 +195,7 @@ label part4:
     show sasha normal
     "часть 4"
     call teleport
+    play music "disturbing_music.ogg" fadein 1
     $ num_fight = 3
     jump inspect
 
@@ -201,6 +205,7 @@ label part5:
     show sasha normal
     "Часть 5"
     call teleport
+    play music "disturbing_music.ogg" fadein 1
     $ num_fight = 4
     jump inspect
 
@@ -249,6 +254,7 @@ label select_part:
 
 
 label teleport:
+    play sound "teleport.ogg"
     scene bg teleport with fade
     pause(1.0)
     return
@@ -278,11 +284,12 @@ label inspect:
 
 label inspect_action:
     if nums_goods_opt_choi_bug[num_fight] == num_elem:
+        play sound "klick.ogg"
         "Выбран вариант [num_elem+1], верно."
-        # scene black with fade
-        # centered "Бой с ошибкой [names_bugs[num_fight]].
+        stop music fadeout 1
         call teleport
 
+        play music "fight1.ogg" fadein 1
         if num_fight == 0:
             scene bg fight with dissolve
             show sasha normal at left
@@ -304,6 +311,7 @@ label inspect_action:
 
         $ shown_options = [0, 1, 2, 3, 4]
         jump fight
+    play sound "klick_NO.ogg"
     "Выбран вариант [num_elem+1], неверно."
     $ number_mistakes += 1
     jump inspect
@@ -328,17 +336,23 @@ label fight:
             jump AI_help
 
 label fight_action:
+
     if nums_goods_options_fight[num_fight] == num_elem:
+        play sound "klick.ogg"
         pause(0.2)
+        play sound "wilhelm_scream.ogg"
         hide monster
         "Выбран вариант [num_elem+1], Верно."
+        stop music fadeout 1
         call teleport
         jump select_part
+    play sound "klick_NO.ogg"
     "Выбран вариант [num_elem+1], Неверно."
     $ number_mistakes += 1
     jump fight
 
 label AI_help:
+    play sound "fuck-you1.ogg"
     if ai_uses_count > 7:
         jump skynet_end
      
