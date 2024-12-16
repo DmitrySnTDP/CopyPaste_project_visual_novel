@@ -70,23 +70,30 @@ define nums_goods_options_fight = [1, 2, 3, 2, 1]
 define shown_options = [0, 1, 2, 3]
 
 image monster one = "monsters/monster1.png"
-image bg fantasy_world = im.Scale("fantasy_worlds/fantasy_world1.jpg" , 1920, 1080)
+image bg fantasy_world = im.Scale("fantasy_worlds/fantasy_world1.png" , 1920, 1080)
 
 define number_mistakes = 0
 define ai_uses_count = 0
 define num_fight = 0
 define num_elem = 0
+define hp_sasha = 100
+define xalign_s = 0.5
 
 
 label start:
-    play music "start_fone_music.ogg" fadein 1
+    play music "start_fone_music.ogg"
     scene bg room_sasha
     show sasha welcoming at left
-    "Это Саша. Он закончил учиться и ищет работу тестировщиком."
+    "Это Саша. Он только что закончил учёбу и ищет работу тестировщиком."
+    "Работа тестировщика — это не просто поиск ошибок в программах. Это сложный и важный процесс, 
+    от которого зависит, насколько хорошо будет работать продукт."
+    "Тестировщики проверяют код на стабильность, ищут баги и помогают разработчикам сделать программы идеальными."
+    "Саша всегда любил разбираться в мелочах, искать логические несостыковки и находить решения. 
+    Именно поэтому он решил, что тестирование программ — это то, чем он хочет заниматься." 
+    "И вот, наконец, он получил предложение пройти испытательный срок в крупной IT-компании. 
+    Для него это шанс не только начать карьеру, но и узнать, каково это — быть частью команды, создающей будущее." 
 
     scene bg sachas_computer
-    show sasha surprised at right
-    "О, на его вакансию откликнулась крупная кампания и предложила протестировать их новый проект."
     "Если Саша хорошо справится с задачей, то его примут на работу."
     stop music fadeout 1
 
@@ -98,11 +105,28 @@ label part1:
     scene black with fade
     centered "На следующий день"
     play music "people_fone1.ogg" fadein 1
-    scene bg office with fade
-    show sasha excited
-    "Это первый день Саши в этой кампании."
     
     scene bg in_office with fade
+    show sasha normal:
+        xalign 0.15
+        yalign 1.0
+    show boss normal
+    show roma normal:
+        xalign 0.75
+        yalign 1.0
+
+    b "Ну что, Саша, готов приступить к своей первой задаче?"
+    s "Конечно, готов. Всего-то нужно проверить код и найти ошибки. Это ведь то, на что я учился."
+    r "Вот только не забывай: ошибки здесь бывают далеко не учебные. Некоторые баги умудряются прятаться так, что их и с фонарём не найдёшь."
+    s "Не страшно. Если что — есть ты, Рома, чтобы меня выручить."
+    r "Ага, мечтай. Я тебе дам пару подсказок, но всё остальное — твоя зона ответственности. Так что готовься потеть."
+    b "Мы даём тебе важную задачу. В нашем деле качество продукта — это всё. Если ты найдёшь и исправишь баг, ты не просто улучшишь программу, ты сэкономишь нашей компании кучу денег."
+    s "Понял. Не подведу."
+    r "Ладно, герой, вот тебе первая программа. Начинай с неё. И если увидишь что-то странное, просто скажи: “Рома, я тут кое-что нашёл”, — и мы разберёмся."
+    b "Рома, ты слишком расслабляешь новичков. Саша, если застрянешь, не стесняйся спрашивать. Но я уверен, что ты справишься."
+    s "Спасибо за доверие. Приступаю!"
+    hide boss
+    hide roma
     show sasha excited
     s "Мне так не терпится приступить к работе и показать себя в деле!"
     s "Что-то мне становится нехорошо, кружится голова, ощущение, что меня куда-то засасывает."
@@ -110,12 +134,20 @@ label part1:
     call teleport
 
     scene bg fantasy_world
-    show sasha normal
+    show sasha surprised
     play music "disturbing_music.ogg" fadein 1
     s "Где я? Как я сюда попал? Ладно, для начала надо осмотреться."
+    show sasha surprised:
+        xalign 0.3
+        yalign 1.0
     "Пока Саша ходит, он не перестает размышлять о том, как можно решить его первую задачу на работе."
-
+    show sasha surprised:
+        xalign 0.7
+        yalign 1.0
     s "Почему-то все пути вели меня в одно место, такое ощущение, что я ищу ошибку и все ближе и ближе к ней приближаюсь."
+    show sasha surprised:
+        xalign 0.9
+        yalign 1.0
     s "Она должна быть где-то здесь!"
     
     jump inspect
@@ -155,7 +187,7 @@ label part2:
     s "Я чувствую, что скоро снова окажусь в этом странном месте. Наверное, когда я буду совсем близко к решению следующей проблемы…" 
     # <Саша возвращается к своему рабочему столу. > 
     scene bg workplace
-    show sasha normal at right
+    # show sasha normal at right
     "Он сосредоточенно работает над второй задачей. Часы тикают. Он чувствует всё нарастающее чувство тревоги, ощущение дежавю." 
     "Саша перепроверяет каждый оператор, каждую переменную."
     "Он снова чувствует… то же самое ощущение, что и в прошлый раз. Голова начинает кружиться…"
@@ -190,30 +222,10 @@ label part3:
     jump inspect
 
 
-label part4:
-    scene bg in_office with fade
-    show sasha normal
-    "часть 4"
-    call teleport
-    play music "disturbing_music.ogg" fadein 1
-    $ num_fight = 3
-    jump inspect
-
-
-label part5:
-    scene bg in_office with fade
-    show sasha normal
-    "Часть 5"
-    call teleport
-    play music "disturbing_music.ogg" fadein 1
-    $ num_fight = 4
-    jump inspect
-
-
 label to_end:
-    if 0 <= number_mistakes <= 4:
+    if 0 <= number_mistakes <= 3:
         jump good_end
-    elif 5 <= number_mistakes <= 10:
+    elif 4 <= number_mistakes <= 8:
         jump neutral_end
     else:
         jump bad_end
@@ -234,6 +246,21 @@ label bad_end:
     return
 
 
+label sasha_died:
+    stop music
+    hide sasha
+    hide hp sasha
+    play sound "wilhelm_scream.ogg"
+    pause(1.0)
+    scene black with fade
+    scene bg hospital_room with fade
+    play sound "game_over1.ogg" fadein 1
+    "Саша впадает в кому и больше никогда не приходит в себя"
+    scene black with fade
+    centered "GAME OVER"
+    return
+
+
 label skynet_end:
     "Бунт ИИ."
     "людишкам кабзда)"
@@ -246,10 +273,6 @@ label select_part:
     elif num_fight == 1:
         jump part3
     elif num_fight == 2:
-        jump part4
-    elif num_fight == 3:
-        jump part5
-    elif num_fight == 4:
         jump to_end
 
 
@@ -290,10 +313,13 @@ label inspect_action:
         call teleport
 
         play music "fight1.ogg" fadein 1
+        scene bg fight with dissolve
+        show sasha normal at left
+        image monster = "monsters/monster[num_fight+1].png"
+        show monster:
+            xalign 0.5
+            yalign 0.6
         if num_fight == 0:
-            scene bg fight with dissolve
-            show sasha normal at left
-            show monster one
             s "Уф, сколько раз это ещё будет повторяться!?"
             s "О нет, кажется это та самая ошибка..."
             s "Самостоятельно я точно не справлюсь, жалко, что моего друга-разработчика нет рядом..."
@@ -302,12 +328,20 @@ label inspect_action:
             r "Молодец, ты смог найти свою первую ошибку!"
             s "Как ты сюда попал? Ты знал про этот мир?"
             r "Это каждый тестировщик знает, ты в каком веке живешь? Я появляюсь в этом мире, когда тестировщику плохо. Меньше слов - больше дела."
-        else:
-            scene bg fight with dissolve
+            image hp sasha = "hp/hp [hp_sasha]%.png"
+            show hp sasha:
+                yalign 0.32
+                xalign 0.00
+            show sasha excited at left
+            s "Это что за полоска надо мной появилась!? HP!?"
+            r "Да, и к сожанию они будут уменьшаться при каждой ошибке в бою. Если они закончатся, то ты больше не сможешь выбраться из этого мира."
+            s "\"Таких приколов я не видел еще парни!\""
             show sasha normal at left
-            image monster = "monsters/monster[num_fight+1].png"
-            show monster at right
-            s "Пора победить её!"
+        else:
+            show roma normal at right
+            show monster 
+            s "Вот мы и снова здесь..."
+        r "[get_random_elem_in_array(phrases_developer_call)]"
 
         $ shown_options = [0, 1, 2, 3, 4]
         jump fight
@@ -317,6 +351,10 @@ label inspect_action:
     jump inspect
 
 label fight:
+    image hp sasha = "hp/hp [hp_sasha]%.png"
+    show hp sasha:
+        yalign 0.32
+        xalign 0.00
     menu:
         s "Давай выберем вариант, который исправит ошибку."
         "[phrases_fight[num_fight][0]]" if 0 in shown_options:
@@ -348,12 +386,16 @@ label fight_action:
         jump select_part
     play sound "klick_NO.ogg"
     "Выбран вариант [num_elem+1], Неверно."
+    $ hp_sasha -= 10
+    if hp_sasha == 0:
+        jump sasha_died
+
     $ number_mistakes += 1
     jump fight
 
 label AI_help:
     play sound "fuck-you1.ogg"
-    if ai_uses_count > 7:
+    if ai_uses_count > 4:
         jump skynet_end
      
     python:
@@ -364,5 +406,5 @@ label AI_help:
             if nums_goods_options_fight[num_fight] != del_item and del_item in shown_options:
                 shown_options.remove(del_item)
                 break
-        renpy.say(ai, "Мне кажется, что вариант [phrases_fight[num_fight][del_item]] не правильный.")
+        renpy.say(ai, "Мне кажется, что вариант \"[phrases_fight[num_fight][del_item]]\" не правильный.")
     jump fight

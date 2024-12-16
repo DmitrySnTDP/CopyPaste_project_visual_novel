@@ -1,10 +1,10 @@
-2024-12-15 19:55:53 UTC
+2024-12-16 16:30:19 UTC
 Windows-10-10.0.26100
 Ren'Py 8.3.2.24090902
 
 Early init took 0.05s
 Loading error handling took 0.02s
-Loading script took 0.09s
+Loading script took 0.08s
 Loading save slot metadata took 0.03s
 Loading persistent took 0.00s
 Running init code took 0.03s
@@ -12,7 +12,6 @@ Loading analysis data took 0.01s
 Analyze and compile ATL took 0.00s
 Reloading save slot metadata took 0.02s
 Index archives took 0.00s
-Backing up script files to 'C:\\Users\\Dima\\AppData\\Roaming/RenPy/backups\\Mistake of fate':
 Dump and make backups took 0.04s
 Cleaning cache took 0.00s
 Making clean stores took 0.00s
@@ -20,18 +19,18 @@ Initial gc took 0.03s
 DPI scale factor: 1.250000
 nvdrs: Loaded, about to disable thread optimizations.
 nvdrs: Disabled thread optimizations.
-Creating interface object took 0.24s
+Creating interface object took 0.25s
 Cleaning stores took 0.00s
-Init translation took 0.03s
+Init translation took 0.04s
 Build styles took 0.00s
-Load screen analysis took 0.00s
-Analyze screens took 0.01s
-Save screen analysis took 0.02s
+Load screen analysis took 0.02s
+Analyze screens took 0.00s
+Save screen analysis took 0.00s
 Prepare screens took 0.05s
 Save pyanalysis. took 0.00s
-Save bytecode. took 0.02s
+Save bytecode. took 0.00s
 Running _start took 0.00s
-Interface start took 0.07s
+Interface start took 0.13s
 
 Initializing gl2 renderer:
 primary display bounds: (0, 0, 1920, 1080)
@@ -43,29 +42,10 @@ Version: b'4.6.0 NVIDIA 566.36'
 Display Info: None
 Screen sizes: virtual=(1920, 1080) physical=(1920, 1080) drawable=(1920, 1080)
 Maximum texture size: 4096x4096
-
-Full traceback:
-  File "game/script.rpy", line 268, in script
-    show deffect code:
-  File "D:\Programs\renpy-8.3.2-sdk\renpy\ast.py", line 1111, in execute
-    show_imspec(self.imspec, atl=getattr(self, "atl", None))
-  File "D:\Programs\renpy-8.3.2-sdk\renpy\ast.py", line 1074, in show_imspec
-    renpy.config.show(name,
-  File "D:\Programs\renpy-8.3.2-sdk\renpy\exports\displayexports.py", line 503, in show
-    sls.add(layer, img, key, zorder, behind, at_list=at_list, name=name, atl=atl, default_transform=default_transform, transient=transient)
-  File "D:\Programs\renpy-8.3.2-sdk\renpy\display\scenelists.py", line 466, in add
-    thing.set_transform_event("show")
-  File "D:\Programs\renpy-8.3.2-sdk\renpy\display\transform.py", line 823, in set_transform_event
-    self.child.set_transform_event(event)
-  File "D:\Programs\renpy-8.3.2-sdk\renpy\display\image.py", line 501, in set_transform_event
-    return self.target.set_transform_event(event)
-  File "D:\Programs\renpy-8.3.2-sdk\renpy\display\image.py", line 760, in set_transform_event
-    self.find_target()
-  File "D:\Programs\renpy-8.3.2-sdk\renpy\display\image.py", line 683, in find_target
-    raise Exception(error)
-Exception: DynamicImage 'codes/code[num_fight+1].png': could not find image. ('codes/code4.png')
-
-While running game code:
-  File "game/script.rpy", line 268, in script
-    show deffect code:
-Exception: DynamicImage 'codes/code[num_fight+1].png': could not find image. ('codes/code4.png')
+Cleaning stores took 0.00s
+Init translation took 0.00s
+Build styles took 0.00s
+Load screen analysis took 0.02s
+Analyze screens took 0.00s
+Prepare screens took 0.00s
+Running _start took 0.00s
