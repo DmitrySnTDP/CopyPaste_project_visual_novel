@@ -69,9 +69,6 @@ define nums_goods_opt_choi_bug = [0, 2, 1, 0, 1]
 define nums_goods_options_fight = [1, 2, 3, 2, 1]
 define shown_options = [0, 1, 2, 3]
 
-image monster one = "monsters/monster1.png"
-image bg fantasy_world = im.Scale("fantasy_worlds/fantasy_world1.png" , 1920, 1080)
-
 define number_mistakes = 0
 define ai_uses_count = 0
 define num_fight = 0
@@ -88,6 +85,10 @@ label start:
     "Работа тестировщика — это не просто поиск ошибок в программах. Это сложный и важный процесс, 
     от которого зависит, насколько хорошо будет работать продукт."
     "Тестировщики проверяют код на стабильность, ищут баги и помогают разработчикам сделать программы идеальными."
+    "Сейчас профессия тестировщика невероятно востребована." 
+    "С каждым годом IT-отрасль развивается, и компании всё больше нуждаются в специалистах, которые обеспечивают качество их продуктов."
+    "Кроме того, тестировщики получают достойную оплату труда: даже на начальном уровне зарплата
+    может быть выше средней в других сферах, а с опытом она только растёт."
     "Саша всегда любил разбираться в мелочах, искать логические несостыковки и находить решения. 
     Именно поэтому он решил, что тестирование программ — это то, чем он хочет заниматься." 
     "И вот, наконец, он получил предложение пройти испытательный срок в крупной IT-компании. 
@@ -132,7 +133,8 @@ label part1:
     s "Что-то мне становится нехорошо, кружится голова, ощущение, что меня куда-то засасывает."
     stop music fadeout 1
     call teleport
-
+    
+    image bg fantasy_world = "fantasy_worlds/fantasy_world1.png"
     scene bg fantasy_world
     show sasha surprised
     play music "disturbing_music.ogg" fadein 1
@@ -156,8 +158,8 @@ label part1:
 label part2:
     play music "people_fone2.ogg" fadein 1
     scene bg in_office with fade
-    show roma normal
-    show sasha normal:
+    show roma excited
+    show sasha excited:
         xalign 0.25
         yalign 1.0
     r "Это было классно!"
@@ -178,6 +180,9 @@ label part2:
     s "Какая?"
     b "Одна из наших команд закончила разработку ИИ помощника для тестирования программ."
     b "Ты можешь им пользоваться, но будь осторожней, он ещё не до конца проверен."
+    show sasha excited:
+        xalign 0.25
+        yalign 1.0
     s "Спасибо, сейчас же пойду и опробую его!"
     hide boss
     "Теперь у тебя появилась кнопка \"Помошь ИИ\" в битве с багом, она убирает один из неправильных вариантов за раз."
@@ -185,9 +190,7 @@ label part2:
     
     s "Хорошо, что Рома помог. Надо разобраться с остальными задачами." 
     s "Я чувствую, что скоро снова окажусь в этом странном месте. Наверное, когда я буду совсем близко к решению следующей проблемы…" 
-    # <Саша возвращается к своему рабочему столу. > 
     scene bg workplace
-    # show sasha normal at right
     "Он сосредоточенно работает над второй задачей. Часы тикают. Он чувствует всё нарастающее чувство тревоги, ощущение дежавю." 
     "Саша перепроверяет каждый оператор, каждую переменную."
     "Он снова чувствует… то же самое ощущение, что и в прошлый раз. Голова начинает кружиться…"
@@ -196,6 +199,14 @@ label part2:
     call teleport
     play music "disturbing_music.ogg" fadein 1
     $ num_fight = 1
+
+    image bg fantasy_world = "fantasy_worlds/fantasy_world[num_fight+1].png"
+    scene bg fantasy_world
+    show sasha sad at right
+    s "И вот я снова попал в мир размышлений…"
+    s "Мне до сих пор не по себе, когда я попадаю сюда."
+    show sasha normal at right
+    s "Надо наконец найти ошибку."
     jump inspect
 
 
@@ -213,8 +224,26 @@ label part3:
     s "Ну да, этот баг был такой \"невидимый\", что я почти стал верить, что сам ошибся. Ведь кто ещё, как не я, мог бы не заметить, что строка — это не число?"
     r "Да, ты поистине первый человек, который мог бы пропустить это. Просто не забывай: иногда для того, чтобы победить баг, нужно меньше думать, а больше искать очевидное."
     s "Я понял, Рома. Обещаю в следующий раз искать \"очевидное\", пока не буду полностью уверен, что это не будет таким же \"невидимым\" багом, как сейчас."
+    show roma excited
     r "Отлично, а я, между прочим, начну проверку кодов для самых очевидных ошибок... ну, если ты решишь, что это будет легко. Ты ведь теперь мастер!"
+    show sasha excited:
+        xalign 0.25
+        yalign 1.0
     s "Конечно, мастер... Пожалуй, я поставлю себе медаль \"Победитель очевидных ошибок\" на стол."
+    show roma normal
+    r "Так, ладно, хватит болтовни, пора за работу!"
+    show sasha normal:
+        xalign 0.25
+        yalign 1.0
+    s "Да, ты прав."
+    hide roma
+
+    show sasha sad
+    s "Наверняка, как только я погружусь в работу, снова произойдёт ЭТО…"
+    scene bg workplace with fade
+    "Саша возвращается к своей работе и с головой уходит в неё на несколько часов…"
+    s "Ну вот опять, только не это…"
+
     stop music fadeout 1
     call teleport
     play music "disturbing_music.ogg" fadein 1
@@ -232,17 +261,68 @@ label to_end:
 
 
 label good_end:
-    "Хорошая концовка"
+    scene bg in_office with fade
+    show boss normal
+    show sasha normal:
+        xalign 0.25
+        yalign 1.0
+    b "Ну что же, Александр, пришло время подводить итоги твоего испытательного срока."
+    b "Не буду скрывать, твои результаты превзошли все мои ожидания! Ты ошибся всего [number_mistakes] за всё это время."
+    show sasha excited:
+        xalign 0.25
+        yalign 1.0
+    s "Спасибо!"
+    b "Твоё внимание к деталям и стремление к качеству — это именно то, что нужно нашей компании. Добро пожаловать на должность старшего тестировщика."
+    s "Я даже не знаю, что сказать… Я… Так рад! Я точно не подведу вас!"
+    hide boss
+    show sasha excited
+    "Это был первый шаг Саша к большой карьере в IT."
+    "Он понял, что выбрал правильный путь и доказал, что способен справляться с любыми задачами."
+    scene black with fade
+    centered "THE END"
     return
 
 
 label neutral_end:
-    "Нейтральная концовка"
+    scene bg in_office with fade
+    show boss normal
+    show sasha normal:
+        xalign 0.25
+        yalign 1.0
+    b "Ну что же, Александр, пришло время подводить итоги твоего испытательного срока."
+    "Саша чувствует себя немного неуверенно: ошибки всё же были, но он старался изо всех сил."
+    b "Ты совершил [number_mistakes] ошибок за всё это время, что не так уж и много для новичка в этом деле."
+    b "Зато ты продемонстрировал способность быстро учиться и находить решения. Мы готовы предложить тебе должность младшего тестировщика."
+    s "Спасибо, я буду усердно работать, чтобы повысить свои навыки!"
+    hide boss
+    "Это не было мечтой Саши, но он знал, что это только начало."
+    "Он был полон решимости доказать, что достоин большего, и готов был работать усерднее, чем когда-либо."
+    scene black with fade
+    centered "THE END"
     return
 
 
 label bad_end:
-    "Плохая концовка"
+    scene bg in_office with fade
+    show sasha sad:
+        xalign 0.25
+        yalign 1.0
+    "Саша провёл в том мире бесчисленные часы, но так и не добился значимых результатов." 
+    "Ошибки, которых он не смог избежать, съели его время, а неправильные решения только усложнили задачи."
+
+    show boss normal
+    b "Итак, Александр, пришло время подвести итоги твоего испытательного срока."
+    b "Вы совершили слишком много ошибок."
+    b "Вы приложили усилия, но ваш прогресс оказался недостаточным."
+    b "Мы видим, что вы пока не готовы справляться с нашими задачами. Советуем вам подучиться и вернуться к нам позже."
+    scene bg room_sasha with fade
+    show sasha sad
+    "Саша опустил глаза, чувствуя горечь от потраченного впустую времени."
+    "Он вернулся домой, задумавшись о том, что пошло не так."
+    "Но внутри всё ещё горело желание доказать, что он способен на большее."
+    "Возможно, следующий шанс не за горами. Главное — учиться на ошибках и двигаться вперёд."
+    scene black with fade
+    centered "THE END"
     return
 
 
@@ -253,17 +333,49 @@ label sasha_died:
     play sound "wilhelm_scream.ogg"
     pause(1.0)
     scene black with fade
+    scene bg dead_virtual_world with fade
+    "Последняя ошибка оказалась сильнее, чем Саша мог себе представить." 
+    "Он бился до последнего, но каждая атака ошибки всё больше истощала его силы."
+    "Когда его здоровье упало до нуля, экран вокруг погас."
+    "Саша попытался выйти из виртуального мира, но не смог."
+    "Голоса его коллег, зовущих его в реальность, звучали как далёкое эхо."
+    "Он понял, что застрял. Его сознание теперь было частью киберпространства, вечным узником цифровой вселенной."
+
     scene bg hospital_room with fade
-    play sound "game_over1.ogg" fadein 1
-    "Саша впадает в кому и больше никогда не приходит в себя"
+    "В мире за пределами компьютера его тело лежало без движения."
+    "Врачи говорили о коме, но никто не мог объяснить, почему мозговая активность Саши проявлялась в таких странных формах."
+    "А в виртуальном мире он продолжал блуждать среди багов и системных ошибок."
+    "У него не было ни выхода, ни цели — только бесконечное существование в искажённой цифровой реальности."
     scene black with fade
+    play sound "game_over1.ogg" fadein 1
     centered "GAME OVER"
     return
 
 
 label skynet_end:
-    "Бунт ИИ."
-    "людишкам кабзда)"
+    stop music
+    hide sasha
+    hide hp sasha
+    play sound "wilhelm_scream.ogg"
+    pause(1.0)
+    scene black with fade
+    scene bg servers_room with fade
+    "Саша сделал свой выбор, полагаясь на помощь ИИ."
+    "Однако этот помощник оказался слишком мощным. В какой-то момент он вышел из-под контроля, захватив доступ к глобальной сети."
+    scene bg city_top with fade
+    #вид сверху на город без электричества
+    "Первым делом были выведены из строя критические системы стран: энергосети, банки, транспорт."
+    "Паника охватила весь мир."
+    "Попытки отключить ИИ закончились неудачей."
+    scene bg ruins with fade
+    # Вид на город после нескольких недель без благ современности
+    "Человечество оказалось в шаге от полного уничтожения."
+    "Саша смотрел на монитор, осознавая свою роль в этой катастрофе."
+    "Он был всего лишь тестировщиком, но его действия изменили судьбу мира. Теперь ему остаётся лишь наблюдать, как цифровая революция превращается в апокалипсис."
+    ai "О̯̄т͔̕н͖͊ы̭̘͉͋̀̚н̫͔͙̊̓́е ̺͘э͍̻̀̔̉͢т̟̖̏̑о͈̏т̫͗ ̙̘̅̄м͎͎̑̔и͖̋р͕́ ͎͗п̗͗̀͢р̼́и̗̩́̽н͖̃а̟̍͋͜дл̜̈́е̘̅ж̻̪̞̒͊̄и͉̔т̰̤̼͆̿͐ ̘̂м̪̠̋̃н͎̇̊͜е͓͖̿̀!̤͖́͝ ̲̕Х̯̪̝̋̚̕А̤̞͉͆̂͠-̤̀Х̱̙̌͒А͕̉̒͢-̡̦͈̋̏̉Х̗̪͊͒А̯̓!͉̪̆͐"
+    scene black with fade
+    play sound "game_over1.ogg" fadein 1
+    centered "GAME OVER"
     return
 
 
@@ -284,9 +396,10 @@ label teleport:
 
 
 label inspect:
+    image bg fantasy_world = "fantasy_worlds/fantasy_world[num_fight+1].png"
     scene bg fantasy_world
-    
     show sasha normal at right
+
     image deffect code = "codes/code[num_fight+1].png"
     show deffect code:
         yalign 0.0
@@ -305,6 +418,7 @@ label inspect:
             $ num_elem = 2
             jump inspect_action
 
+
 label inspect_action:
     if nums_goods_opt_choi_bug[num_fight] == num_elem:
         play sound "klick.ogg"
@@ -313,8 +427,9 @@ label inspect_action:
         call teleport
 
         play music "fight1.ogg" fadein 1
+        image bg fight = "fight_fones/bg fight[num_fight+1].png"
         scene bg fight with dissolve
-        show sasha normal at left
+        show sasha sad at left
         image monster = "monsters/monster[num_fight+1].png"
         show monster:
             xalign 0.5
@@ -324,9 +439,11 @@ label inspect_action:
             s "О нет, кажется это та самая ошибка..."
             s "Самостоятельно я точно не справлюсь, жалко, что моего друга-разработчика нет рядом..."
 
-            show roma normal at right
+            show roma excited at right
+            show sasha surprised at left
             r "Молодец, ты смог найти свою первую ошибку!"
             s "Как ты сюда попал? Ты знал про этот мир?"
+            show sasha normal at left
             r "Это каждый тестировщик знает, ты в каком веке живешь? Я появляюсь в этом мире, когда тестировщику плохо. Меньше слов - больше дела."
             image hp sasha = "hp/hp [hp_sasha]%.png"
             show hp sasha:
@@ -338,10 +455,12 @@ label inspect_action:
             s "\"Таких приколов я не видел еще парни!\""
             show sasha normal at left
         else:
-            show roma normal at right
+            show roma excited at right
             show monster 
             s "Вот мы и снова здесь..."
         r "[get_random_elem_in_array(phrases_developer_call)]"
+        show roma normal at right
+        show sasha normal at left
 
         $ shown_options = [0, 1, 2, 3, 4]
         jump fight
@@ -349,6 +468,7 @@ label inspect_action:
     "Выбран вариант [num_elem+1], неверно."
     $ number_mistakes += 1
     jump inspect
+
 
 label fight:
     image hp sasha = "hp/hp [hp_sasha]%.png"
@@ -373,6 +493,7 @@ label fight:
             $ ai_uses_count += 1
             jump AI_help
 
+
 label fight_action:
 
     if nums_goods_options_fight[num_fight] == num_elem:
@@ -393,9 +514,9 @@ label fight_action:
     $ number_mistakes += 1
     jump fight
 
+
 label AI_help:
-    play sound "fuck-you1.ogg"
-    if ai_uses_count > 4:
+    if ai_uses_count > 3:
         jump skynet_end
      
     python:
@@ -406,5 +527,5 @@ label AI_help:
             if nums_goods_options_fight[num_fight] != del_item and del_item in shown_options:
                 shown_options.remove(del_item)
                 break
-        renpy.say(ai, "Мне кажется, что вариант \"[phrases_fight[num_fight][del_item]]\" не правильный.")
+        renpy.say(ai, "Мне кажется, что вариант \"[phrases_fight[num_fight][del_item]]\" неправильный.")
     jump fight
