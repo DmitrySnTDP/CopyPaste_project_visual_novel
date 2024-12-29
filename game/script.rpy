@@ -153,7 +153,9 @@ label part2:
     play music "people_fone1.ogg" fadein 1
     scene bg in_office with fade
     show boss normal
-    show sasha normal
+    show sasha normal:
+        xalign 0.25
+        yalign 1.0
     b "У меня есть хорошая новость для тебя."
     s "Какая?"
     b "Одна из наших команд закончила разработку ИИ помощника для тестирования программ."
@@ -234,7 +236,7 @@ label good_end:
     show sasha surprised
     s "Я даже не знаю, что сказать… Я… Так рад! Я точно не подведу вас!"
     hide boss
-    show sasha excited at centered
+    show sasha excited at center
     "Это был первый шаг Саша к большой карьере в IT."
     "Он понял, что выбрал правильный путь и доказал, что способен справляться с любыми задачами."
     scene black with fade
@@ -256,7 +258,7 @@ label neutral_end:
     s "Спасибо, я буду усердно работать, чтобы повысить свои навыки!"
     hide boss
     "Это не было мечтой Саши, но он знал, что это только начало."
-    show sasha excited at centered
+    show sasha excited at center
     "Он был полон решимости доказать, что достоин большего, и готов был работать усерднее, чем когда-либо."
     scene black with fade
     centered "THE END"
@@ -278,7 +280,7 @@ label bad_end:
     b "Вы приложили усилия, но ваш прогресс оказался недостаточным."
     b "Мы видим, что вы пока не готовы справляться с нашими задачами. Советуем вам подучиться и вернуться к нам позже."
     scene bg room_sasha with fade
-    show sasha sad at centered
+    show sasha sad at center
     "Саша опустил глаза, чувствуя горечь от потраченного впустую времени."
     "Он вернулся домой, задумавшись о том, что пошло не так."
     "Но внутри всё ещё горело желание доказать, что он способен на большее."
