@@ -23,7 +23,7 @@ define gui.show_name = True
 
 ## Версия игры.
 
-define config.version = "0.5"
+define config.version = "0.6"
 
 
 ## Текст, помещённый в экран "Об игре". Поместите текст между тройными скобками.
@@ -48,21 +48,21 @@ define build.name = "CopyPaste_Game"
 
 define config.has_sound = True
 define config.has_music = True
-define config.has_voice = True
+define config.has_voice = False
 
 
 ## Чтобы разрешить игроку тестировать громкость на звуковом или голосовом
 ## каналах, раскомментируйте строчку и настройте пример звука для прослушивания.
 
-define config.sample_sound = "people_oryt1.ogg"
-# define config.sample_voice = "sample-voice.ogg"
+define config.sample_sound = "test sound.ogg"
+# define config.sample_voice = "test music.ogg"
 
 
 ## Раскомментируйте следующую строчку, чтобы настроить аудиофайл, который будет
 ## проигрываться в главном меню. Этот файл продолжит проигрываться во время
 ## игры, если не будет остановлен, или не начнёт проигрываться другой аудиофайл.
 
-# define config.main_menu_music = "main-menu-theme.ogg"
+define config.main_menu_music = "menu music.ogg"
 
 
 ## Переходы ####################################################################
@@ -106,7 +106,7 @@ define config.end_game_transition = None
 ## После начала игры этот параметр можно изменить с помощью "window show",
 ## "window hide" и "window auto".
 
-define config.window = "auto"
+define config.window = "hide"
 
 
 ## Переходы, используемые при показе и скрытии диалогового окна
@@ -127,7 +127,7 @@ default preferences.text_cps = 0
 ## Стандартная задержка авточтения. Большие значения означают долгие ожидания, а
 ## от 0 до 30 — вполне допустимый диапазон.
 
-default preferences.afm_time = 15
+default preferences.afm_time = 10
 
 
 ## Директория сохранений #######################################################

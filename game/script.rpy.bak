@@ -132,7 +132,7 @@ label part1:
     s "Мне так не терпится приступить к работе и показать себя в деле!"
     s "Что-то мне становится нехорошо, кружится голова, ощущение, что меня куда-то засасывает."
     stop music fadeout 1
-    call teleport from _call_teleport
+    call teleport
     
     image bg fantasy_world = "fantasy_worlds/fantasy_world1.png"
     scene bg fantasy_world
@@ -196,7 +196,7 @@ label part2:
     "Он снова чувствует… то же самое ощущение, что и в прошлый раз. Голова начинает кружиться…"
     s "Нет… только не это, снова… "
     "Мир вокруг Саши начинает искажаться. Цвета становятся неестественными, предметы расплываются. Звуки искажаются в неприятный гул... "
-    call teleport from _call_teleport_1
+    call teleport
     play music "disturbing_music.ogg" fadein 1
     $ num_fight = 1
 
@@ -245,7 +245,7 @@ label part3:
     s "Ну вот опять, только не это…"
 
     stop music fadeout 1
-    call teleport from _call_teleport_2
+    call teleport
     play music "disturbing_music.ogg" fadein 1
     $ num_fight = 2
     jump inspect
@@ -424,7 +424,7 @@ label inspect_action:
         play sound "klick.ogg"
         "Выбран вариант [num_elem+1], верно."
         stop music fadeout 1
-        call teleport from _call_teleport_3
+        call teleport
 
         play music "fight1.ogg" fadein 1
         image bg fight = "fight_fones/bg fight[num_fight+1].png"
@@ -503,7 +503,7 @@ label fight_action:
         hide monster
         "Выбран вариант [num_elem+1], Верно."
         stop music fadeout 1
-        call teleport from _call_teleport_4
+        call teleport
         jump select_part
     play sound "klick_NO.ogg"
     "Выбран вариант [num_elem+1], Неверно."
